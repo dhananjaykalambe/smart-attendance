@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Attendance Records | {{ program_name }}{% endblock %}
+{% block hero_text %}Review the latest attendance entries across students, subjects, and sessions from one organized table.{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="card">
+        <p class="eyebrow">Records</p>
+        <h3>Attendance log</h3>
+
+        {% if data %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Name</th>
+                        <th>Branch</th>
+                        <th>Session ID</th>
+                        <th>Subject</th>
+                        <th>Date & Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                    <tr>
+                        <td>{{ row["roll_no"] }}</td>
+                        <td>{{ row["name"] }}</td>
+                        <td>{{ row["branch"] }}</td>
+                        <td>{{ row["session_id"] }}</td>
+                        <td>{{ row["subject"] }}</td>
+                        <td>{{ row["time"].replace("T", " ") }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state">No attendance records are available yet.</div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
