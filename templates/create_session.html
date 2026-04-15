@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Create Session | {{ program_name }}{% endblock %}
+{% block hero_text %}Faculty can launch a live attendance session by selecting the current subject. A QR code is generated automatically for students to scan.{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="card">
+        <p class="eyebrow">Faculty Action</p>
+        <h3>Create a new attendance session</h3>
+        <p class="lead">Choose the subject for the current class. The system will generate a unique session ID and a QR code that remains valid for a short time.</p>
+
+        <form method="POST" class="subject-buttons">
+            {% for subject in subjects %}
+                <button type="submit" name="subject" value="{{ subject.code }}">{{ subject.label }}</button>
+            {% endfor %}
+        </form>
+    </div>
+</section>
+{% endblock %}
