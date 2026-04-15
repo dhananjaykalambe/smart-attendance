@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} | {{ program_name }}{% endblock %}
+{% block hero_text %}System feedback is shown clearly so students and faculty can immediately understand the attendance result and take the next step if needed.{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="card status-panel status-{{ tone }}">
+        <div class="status-icon">
+            {% if tone == "success" %}
+                ✓
+            {% elif tone == "warning" %}
+                !
+            {% elif tone == "error" %}
+                ×
+            {% else %}
+                i
+            {% endif %}
+        </div>
+        <p class="eyebrow">Status Update</p>
+        <h2>{{ title }}</h2>
+        <p class="lead">{{ message }}</p>
+        <div class="actions" style="margin-top: 24px;">
+            <a class="button-link" href="{{ url_for('scan') }}">Back to Scanner</a>
+            <a class="button-link secondary" href="{{ url_for('home') }}">Return to Dashboard</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
