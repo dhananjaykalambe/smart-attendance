@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Student Directory | {{ program_name }}{% endblock %}
+{% block hero_text %}Manage the student registry used by the attendance system. Add new records and maintain a clean class directory.{% endblock %}
+
+{% block content %}
+<section class="section grid two">
+    <div class="card">
+        <p class="eyebrow">Student Onboarding</p>
+        <h3>Add a student</h3>
+        <form method="POST">
+            <div>
+                <label for="roll">Roll Number</label>
+                <input id="roll" type="text" name="roll" placeholder="Enter roll number" required>
+            </div>
+            <div>
+                <label for="name">Student Name</label>
+                <input id="name" type="text" name="name" placeholder="Enter full name" required>
+            </div>
+            <div>
+                <label for="branch">Branch</label>
+                <input id="branch" type="text" name="branch" placeholder="Enter branch" required>
+            </div>
+            <button type="submit">Add Student</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <p class="eyebrow">Directory Summary</p>
+        <h3>Current registry</h3>
+        <p class="lead">This directory is the source of truth for student login and attendance mapping. Keep roll numbers unique and branch names consistent.</p>
+        <div class="stat" style="margin-top: 18px;">
+            <strong>{{ students|length }}</strong>
+            <span>Total students currently registered</span>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="card">
+        <p class="eyebrow">Student List</p>
+        <h3>Existing students</h3>
+        {% if students %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Name</th>
+                        <th>Branch</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ student["roll_no"] }}</td>
+                        <td>{{ student["name"] }}</td>
+                        <td>{{ student["branch"] }}</td>
+                        <td>
+                            <a class="button-link danger" href="{{ url_for('delete_student', roll_no=student['roll_no']) }}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state">No students have been added yet.</div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
