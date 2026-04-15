@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | {{ program_name }}{% endblock %}
+{% block hero_text %}A polished attendance dashboard for managing classroom sessions, capturing student presence, and reviewing academic activity with confidence.{% endblock %}
+
+{% block content %}
+<section class="section grid two">
+    <div class="card">
+        <p class="eyebrow">Overview</p>
+        <h3>Professional attendance operations for modern classrooms</h3>
+        <p class="lead">Create live QR sessions in seconds, allow students to check in from their own devices, and keep a clean digital record of every class. The interface is designed to feel organized, credible, and easy to use during real academic workflows.</p>
+        <div class="actions" style="margin-top: 20px;">
+            <a class="button-link" href="{{ url_for('create_session') }}">Start Attendance Session</a>
+            <a class="button-link secondary" href="{{ url_for('students_report') }}">View Attendance Report</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <p class="eyebrow">Key Benefits</p>
+        <div class="stats">
+            <div class="stat">
+                <strong>5 min</strong>
+                <span>Controlled attendance window for each session</span>
+            </div>
+            <div class="stat">
+                <strong>QR</strong>
+                <span>Fast check-in with reduced manual handling</span>
+            </div>
+            <div class="stat">
+                <strong>Live</strong>
+                <span>Instant records and reporting visibility</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section grid three">
+    <div class="card">
+        <p class="eyebrow">Session Control</p>
+        <h3>Create secure attendance sessions</h3>
+        <p class="lead">Faculty can generate session-specific QR codes with a short validity window to reduce misuse and improve classroom accountability.</p>
+    </div>
+    <div class="card">
+        <p class="eyebrow">Student Access</p>
+        <h3>Simple login and smooth scanning</h3>
+        <p class="lead">Students can log in with their roll number, scan the QR code, or submit a session ID manually if camera access is unavailable.</p>
+    </div>
+    <div class="card">
+        <p class="eyebrow">Analytics</p>
+        <h3>Better reporting for academic review</h3>
+        <p class="lead">Monitor attendance history, subject participation, and class coverage using the built-in reporting pages.</p>
+    </div>
+</section>
+{% endblock %}
