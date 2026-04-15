@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Scan QR | {{ program_name }}{% endblock %}
+{% block hero_text %}Use the device camera to scan the live class QR code, or enter the session ID manually when scanning is not available.{% endblock %}
+
+{% block content %}
+<section class="section grid two">
+    <div class="card">
+        <p class="eyebrow">Student Panel</p>
+        <h3>Welcome, {{ name }}</h3>
+        <p class="lead">Scan the classroom QR code below. The form will fill automatically when a valid session is detected.</p>
+        <div class="actions" style="margin-top: 18px;">
+            <a class="button-link secondary" href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>
+
+    <div class="card center">
+        <p class="eyebrow">QR Reader</p>
+        <h3>Attendance Scanner</h3>
+        <div class="scanner-box">
+            <div id="reader"></div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="card">
+        <p class="eyebrow">Manual Fallback</p>
+        <h3>Submit a session ID</h3>
+        <form method="POST" action="{{ url_for('mark') }}">
+            <div>
+                <label for="session_id">Session ID</label>
+                <input type="text" id="session_id" name="session_id" placeholder="Enter the session ID" required>
+            </div>
+            <button type="submit">Mark Attendance</button>
+        </form>
+        <p class="muted">If camera access is blocked on your device, enter the session ID provided by faculty.</p>
+    </div>
+</section>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script>
+function onScanSuccess(decodedText) {
+    try {
+        const url = new URL(decodedText);
+        const sessionId = url.searchParams.get("session_id");
+        if (sessionId) {
+            document.getElementById("session_id").value = sessionId;
+            scanner.clear();
+        }
+    } catch (error) {
+        document.getElementById("session_id").value = decodedText;
+    }
+}
+
+function onScanError() {}
+
+const scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 220 });
+scanner.render(onScanSuccess, onScanError);
+</script>
+{% endblock %}
