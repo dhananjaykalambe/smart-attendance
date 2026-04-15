@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics Report | {{ program_name }}{% endblock %}
+{% block hero_text %}Filter attendance activity by date and subject to review student participation and subject-wise coverage in a more structured way.{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="card">
+        <p class="eyebrow">Filters</p>
+        <h3>Attendance analytics</h3>
+        <form method="POST" class="form-grid">
+            <div>
+                <label for="from_date">From Date</label>
+                <input id="from_date" type="date" name="from_date" value="{{ filters.from_date }}">
+            </div>
+            <div>
+                <label for="to_date">To Date</label>
+                <input id="to_date" type="date" name="to_date" value="{{ filters.to_date }}">
+            </div>
+            <div>
+                <label for="subject">Subject</label>
+                <select id="subject" name="subject">
+                    <option value="">All Subjects</option>
+                    {% for subject in subjects %}
+                    <option value="{{ subject.code }}" {% if filters.subject == subject.code %}selected{% endif %}>{{ subject.label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <button type="submit">Apply Filters</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="section">
+    <div class="card">
+        <p class="eyebrow">Report Table</p>
+        <h3>Student attendance report</h3>
+        {% if data %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Name</th>
+                        <th>Branch</th>
+                        <th>Subject</th>
+                        <th>Attended</th>
+                        <th>Total Classes</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                    {% set subject = row["subject"] %}
+                    {% set attended = row["total"] %}
+                    {% set total = total_sessions_dict.get(subject, 0) %}
+                    {% set percent = ((attended / total) * 100) if total > 0 else 0 %}
+                    <tr>
+                        <td>{{ row["roll_no"] }}</td>
+                        <td>{{ row["name"] }}</td>
+                        <td>{{ row["branch"] }}</td>
+                        <td>{{ subject if subject else "N/A" }}</td>
+                        <td>{{ attended }}</td>
+                        <td>{{ total }}</td>
+                        <td>{{ percent|round(2) }}%</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state">No report data is available for the selected filters.</div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
