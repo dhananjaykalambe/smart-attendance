@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Student Login | {{ program_name }}{% endblock %}
+{% block hero_text %}Student access is streamlined for speed. Enter a valid roll number to continue to the attendance scanner.{% endblock %}
+
+{% block content %}
+<section class="section grid two">
+    <div class="card">
+        <p class="eyebrow">Student Access</p>
+        <h3>Sign in to mark attendance</h3>
+        <form method="POST">
+            <div>
+                <label for="roll">Roll Number</label>
+                <input id="roll" type="text" name="roll" placeholder="Enter your roll number" required>
+            </div>
+            <button type="submit">Continue to QR Scanner</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <p class="eyebrow">How It Works</p>
+        <h3>Quick check-in flow</h3>
+        <div class="pill-list">
+            <span class="pill">Login with roll number</span>
+            <span class="pill">Scan QR or enter session ID</span>
+            <span class="pill">Attendance saved instantly</span>
+        </div>
+        <p class="lead" style="margin-top: 18px;">This page is intentionally simple so students can complete attendance quickly during live classroom sessions.</p>
+    </div>
+</section>
+{% endblock %}
