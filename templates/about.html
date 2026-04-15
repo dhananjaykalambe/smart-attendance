@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}About Project | {{ program_name }}{% endblock %}
+{% block hero_text %}This project combines Flask, SQLite, QR workflows, and responsive design to build a more credible and user-friendly attendance platform.{% endblock %}
+
+{% block content %}
+<section class="section grid two">
+    <div class="card">
+        <p class="eyebrow">Project Overview</p>
+        <h3>{{ program_name }}</h3>
+        <p class="lead">The system is designed to replace manual attendance collection with a cleaner digital experience. It gives faculty a fast way to launch attendance windows and helps students complete attendance with minimal friction.</p>
+    </div>
+
+    <div class="card">
+        <p class="eyebrow">Technology Stack</p>
+        <h3>Core tools used</h3>
+        <div class="pill-list">
+            <span class="pill">Flask</span>
+            <span class="pill">SQLite</span>
+            <span class="pill">HTML</span>
+            <span class="pill">CSS</span>
+            <span class="pill">JavaScript</span>
+            <span class="pill">Python QRCode</span>
+            <span class="pill">HTML5 QR Scanner</span>
+        </div>
+    </div>
+</section>
+
+<section class="section grid two">
+    <div class="card">
+        <p class="eyebrow">Features</p>
+        <h3>What the system provides</h3>
+        <ul class="lead">
+            <li>QR-based attendance sessions with limited validity.</li>
+            <li>Duplicate attendance protection for every student-session pair.</li>
+            <li>Student directory management for cleaner record keeping.</li>
+            <li>Attendance records and subject-wise reporting pages.</li>
+            <li>Responsive interface suitable for desktop and mobile screens.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <p class="eyebrow">Credits</p>
+        <h3>Development</h3>
+        <p class="lead">Developed by Dhananjay and team as an academic project, now presented with a stronger visual system and a more maintainable Flask structure.</p>
+    </div>
+</section>
+{% endblock %}
