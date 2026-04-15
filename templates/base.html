@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ program_name }}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-mark">SA</div>
+                <h1>{{ program_name }}</h1>
+                <p>Modern attendance management for faster sessions, clearer reporting, and a more reliable classroom workflow.</p>
+            </div>
+
+            {% set current = request.endpoint %}
+            <nav class="nav">
+                <a class="{% if current == 'home' %}active{% endif %}" href="{{ url_for('home') }}">Dashboard</a>
+                <a class="{% if current == 'login' %}active{% endif %}" href="{{ url_for('login') }}">Student Login</a>
+                <a class="{% if current == 'scan' %}active{% endif %}" href="{{ url_for('scan') }}">Scan QR</a>
+                <a class="{% if current == 'create_session' %}active{% endif %}" href="{{ url_for('create_session') }}">Create Session</a>
+                <a class="{% if current == 'attendance' %}active{% endif %}" href="{{ url_for('attendance') }}">Attendance Records</a>
+                <a class="{% if current == 'add_student' %}active{% endif %}" href="{{ url_for('add_student') }}">Student Directory</a>
+                <a class="{% if current == 'students_report' %}active{% endif %}" href="{{ url_for('students_report') }}">Analytics Report</a>
+                <a class="{% if current == 'subject_details' %}active{% endif %}" href="{{ url_for('subject_details') }}">Subject Details</a>
+                <a class="{% if current == 'about' %}active{% endif %}" href="{{ url_for('about') }}">About Project</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <strong>{{ course_info }}</strong><br>
+                Secure QR-based attendance with quick access for students and faculty.
+            </div>
+        </aside>
+
+        <main class="main">
+            <section class="hero">
+                <div>
+                    <p class="eyebrow">Academic Operations</p>
+                    <h2>{{ college_name }}</h2>
+                    <p>{% block hero_text %}Digitize attendance tracking with session-based QR verification, student records, and instant reports in one place.{% endblock %}</p>
+                </div>
+                <div class="hero-badge">{{ course_info }}</div>
+            </section>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-stack">
+                        {% for category, message in messages %}
+                            <div class="flash {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>
