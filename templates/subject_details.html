@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Subject Details | {{ program_name }}{% endblock %}
+{% block hero_text %}Keep the course structure visible with subject names, faculty information, and theory-practical distribution for the current semester.{% endblock %}
+
+{% block content %}
+<section class="section grid two">
+    <div class="card">
+        <p class="eyebrow">Program Details</p>
+        <h3>B.Tech Computer Science & Engineering</h3>
+        <p class="lead">This subject reference page helps faculty and students quickly identify the active curriculum, the assigned teachers, and the expected course split.</p>
+        <div class="pill-list" style="margin-top: 18px;">
+            <span class="pill">Third Year</span>
+            <span class="pill">Semester VI</span>
+            <span class="pill">Core + Labs</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <p class="eyebrow">Semester Snapshot</p>
+        <h3>Subject coverage</h3>
+        <div class="stat">
+            <strong>{{ subjects|length }}</strong>
+            <span>Total subjects and labs available in this schedule</span>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="card">
+        <p class="eyebrow">Academic Structure</p>
+        <h3>Subject details</h3>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Subject</th>
+                        <th>Teacher</th>
+                        <th>Contact</th>
+                        <th>Theory</th>
+                        <th>Practical</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for subject in subjects %}
+                    <tr>
+                        <td>{{ subject.code }}</td>
+                        <td>{{ subject.name }}</td>
+                        <td>{{ subject.teacher }}</td>
+                        <td>{{ subject.contact }}</td>
+                        <td>{{ subject.theory }}</td>
+                        <td>{{ subject.practical }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}
