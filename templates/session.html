@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Session Created | {{ program_name }}{% endblock %}
+{% block hero_text %}The attendance session is live. Display the QR code in class so students can check in within the allowed time window.{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="card center">
+        <p class="eyebrow">Session Live</p>
+        <h2>{{ subject }}</h2>
+        <p class="lead">Session ID: <strong>{{ session_id }}</strong></p>
+
+        <div class="qr-frame" style="margin: 16px 0 20px;">
+            <img src="{{ url_for('static', filename='qr_codes/' + qr) }}" alt="QR code for attendance session">
+        </div>
+
+        <p class="muted">Students must scan this QR code or use session ID <strong>{{ session_id }}</strong> within {{ expiry_minutes }} minutes.</p>
+
+        <div class="actions" style="margin-top: 24px;">
+            <a class="button-link" href="{{ url_for('create_session') }}">Create Another Session</a>
+            <a class="button-link secondary" href="{{ url_for('attendance') }}">Open Attendance Records</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
